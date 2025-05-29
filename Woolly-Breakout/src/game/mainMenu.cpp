@@ -1,7 +1,9 @@
 #include "mainMenu.h"
 #include "ui/menuWindow.h"
+#include "ui/elements.h"
 #include "../constants/constants.h"
 #include "game.h"
+#include "SDL.h"
 #include <string>
 
 void MainMenu::start() {
@@ -72,15 +74,95 @@ void MainMenu::startJoinMenu() {
 
         joinMenu.addTexture(
             (!isPoint) ? std::string{ip_address[i]} : std::string{"point"}, 
-            Constants::Window::bigPadding * 1.55 + i * Constants::Window::mediumPadding * 1.25 + ((!isPoint) ? 0 : Constants::Window::smallPadding * 0.75),
-            Constants::Window::largePadding * 1.3 + ( (!isPoint) ? 0 : Constants::Window::smallPadding),
-            (!isPoint) ? Constants::Window::mediumPadding * 1.2 : Constants::Window::mediumPadding * 0.65,
-            (!isPoint) ? Constants::Window::mediumPadding * 1.2 : Constants::Window::mediumPadding * 0.651
+            Constants::Window::bigPadding * 1 + i * Constants::Window::mediumPadding * 0.75 + ((!isPoint) ? 0 : Constants::Window::smallPadding * 0.4),
+            Constants::Window::largePadding * 1.35 + ( (!isPoint) ? 0 : Constants::Window::smallPadding * 0.5),
+            (!isPoint) ? Constants::Window::mediumPadding * 0.75 : Constants::Window::mediumPadding * 0.5,
+            (!isPoint) ? Constants::Window::mediumPadding * 0.75 : Constants::Window::mediumPadding * 0.5
         );
-    }
+    } 
 
-    joinMenu.run([&](){
+    joinMenu.run([&](SDL::Event& event) {
+        const bool isInputFull{ ip_address.length() >= 15 };
+        const bool isInputEmpty{ ip_address.length() <= 0 };
 
+        if (event.type == SDL_KEYDOWN) {
+            switch (event.key.keysym.sym) {
+                case SDLK_0:
+                    if (!isInputFull) {
+                        ip_address += '0';
+                        startJoinMenu(); 
+                    }
+                    break;
+                case SDLK_1:
+                    if (!isInputFull) {
+                        ip_address += '1';
+                        startJoinMenu(); 
+                    }
+                    break;
+                case SDLK_2:
+                    if (!isInputFull) {
+                        ip_address += '2';
+                        startJoinMenu(); 
+                    }
+                    break;
+                case SDLK_3:
+                    if (!isInputFull) {
+                        ip_address += '3';
+                        startJoinMenu(); 
+                    }
+                    break;
+                case SDLK_4:
+                    if (!isInputFull) {
+                        ip_address += '4';
+                        startJoinMenu(); 
+                    }
+                    break;
+                case SDLK_5:
+                    if (!isInputFull) {
+                        ip_address += '5';
+                        startJoinMenu(); 
+                    }
+                    break;
+                case SDLK_6:
+                    if (!isInputFull) {
+                        ip_address += '6';
+                        startJoinMenu(); 
+                    }
+                    break;
+                case SDLK_7:
+                    if (!isInputFull) {
+                        ip_address += '7';
+                        startJoinMenu(); 
+                    }
+                    break;
+                case SDLK_8:
+                    if (!isInputFull) {
+                        ip_address += '8';
+                        startJoinMenu(); 
+                    }
+                    break;
+                case SDLK_9:
+                    if (!isInputFull) {
+                        ip_address += '9';
+                        startJoinMenu(); 
+                    }
+                    break;
+                    case SDLK_PERIOD:
+                    if (!isInputFull) {
+                        ip_address += '.';
+                        startJoinMenu(); 
+                    }
+                    break;
+                case SDLK_BACKSPACE:
+                    if (!isInputEmpty) {
+                        ip_address = ip_address.substr(0, ip_address.length() - 1);
+                        startJoinMenu(); 
+                    }
+                    break;
+                default:
+                    break;
+            }
+        }
     });
 }
 

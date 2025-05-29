@@ -5,6 +5,7 @@
 #include "SDL.h"
 #include <string>
 #include <algorithm>
+#include <cstdlib>
 
 MenuWindow::MenuWindow() : Window() {
 	renderer.clear();
@@ -23,7 +24,7 @@ void MenuWindow::addTexture(const std::string& texture, int x, int y, int width,
     renderer.addTexture(texture); 
 }
 
-void MenuWindow::run(std::function<void()> onLoop) {
+void MenuWindow::run(std::function<void(SDL::Event&)> onEvent) {
     SDL::Event event{};
 		
 	renderer.render();
@@ -32,14 +33,12 @@ void MenuWindow::run(std::function<void()> onLoop) {
     Button* clickedButton{ nullptr };
 
     while (true) {
-
-        if (onLoop)
-            onLoop();
-
         while (SDL_PollEvent(&event)) {
-
             if (event.type == SDL_QUIT)
-				return;
+			    exit(0);	
+            
+            if (onEvent)
+                onEvent(event);
 
             if (event.type == SDL_MOUSEBUTTONDOWN) {
                 if (event.button.button == SDL_BUTTON_LEFT) 

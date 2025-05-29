@@ -9,6 +9,7 @@
 #include "../networking/classes/server.h"
 #include "../networking/classes/client.h"
 #include "../networking/utilities.h"
+#include "SDL.h"
 #include <stdexcept>
 #include <string>
 #include <functional>
