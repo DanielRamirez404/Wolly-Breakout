@@ -23,7 +23,7 @@ void MenuWindow::addTexture(const std::string& texture, int x, int y, int width,
     renderer.addTexture(texture); 
 }
 
-void MenuWindow::run() {
+void MenuWindow::run(std::function<void()> onLoop) {
     SDL::Event event{};
 		
 	renderer.render();
@@ -32,6 +32,10 @@ void MenuWindow::run() {
     Button* clickedButton{ nullptr };
 
     while (true) {
+
+        if (onLoop)
+            onLoop();
+
         while (SDL_PollEvent(&event)) {
 
             if (event.type == SDL_QUIT)

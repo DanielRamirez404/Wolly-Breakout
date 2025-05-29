@@ -21,7 +21,7 @@ class MenuWindow : public Window {
         void addButton(const std::string& texture, Button button);
         void addTexture(const std::string& texture, int x, int y, int width, int length);
         
-        void run();
+        void run(std::function<void()> onLoop = nullptr);
 
     private:
 

@@ -5,6 +5,7 @@
 #include "../../constants/notation.h"
 #include "SDL.h"
 #include "SDL_image.h"
+#include <string>
 #include <stdexcept>
 
 Smart::Window Window::window = nullptr;
@@ -46,11 +47,14 @@ void Window::allocateUIResources() {
 	for (std::string_view name : buttons)
 		renderer.loadTexture(std::string{name.data()} + std::string{"-btn"});
 
-	constexpr std::string_view extraNames[] { "player", "frame", "menu-bg", "logo" };
+	constexpr std::string_view extraNames[] { "player", "frame", "menu-bg", "logo", "text-box", "IP", "point" };
 
 	for (std::string_view name : extraNames)
 		renderer.loadTexture(name.data());
 
 	for (auto const& [name, character] : Notation::characters)
 		renderer.loadTexture(name.data());
+
+    for (char i{'0'}; i  <= '9'; ++i)
+        renderer.loadTexture(std::string{i});
 }
